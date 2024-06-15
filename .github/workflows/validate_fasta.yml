@@ -8,10 +8,10 @@ on:
       - 'fasta/*.fasta'
       - 'csv/*.csv'
       - 'gff/*.gff'
+      - '.github/workflows/validate_fasta.yml'
 
 jobs:
   validate_fasta:
-    if: contains(github.event.head_commit.message, '.fasta')
     runs-on: ubuntu-latest
 
     steps:

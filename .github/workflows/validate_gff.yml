@@ -7,10 +7,10 @@ on:
     paths:
       - 'gff/*.gff'
       - 'fasta/*.fasta'
+      - '.github/workflows/validate_gff.yml'
 
 jobs:
   validate_gff:
-    if: contains(github.event.head_commit.message, '.gff')
     runs-on: ubuntu-latest
 
     steps:
