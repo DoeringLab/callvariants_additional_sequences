@@ -28,6 +28,6 @@ jobs:
             exit 1
           fi
           # Validate GFF file
-          docker run --rm -v ${{ github.workspace }}:/workspace quay.io/biocontainers/genometools:1.6.1--h3f25548_0 gt gff3validator /workspace/$gff_file
+          docker run --rm -v ${{ github.workspace }}:/workspace quay.io/biocontainers/genometools-genometools:1.6.5--py38h234d545_3 gt gff3validator /workspace/$gff_file
         done
 
