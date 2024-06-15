@@ -1,0 +1,54 @@
+name: Validate and Index FASTA
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'fasta/*.fasta'
+      - 'csv/*.csv'
+      - 'gff/*.gff'
+
+jobs:
+  validate_fasta:
+    if: contains(github.event.head_commit.message, '.fasta')
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Validate FASTA
+      run: |
+        for fasta_file in $(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'fasta/.*\.fasta$'); do
+          # Check corresponding CSV and GFF files
+          base_name=$(basename "$fasta_file" .fasta)
+          if [[ ! -f "csv/${base_name}.csv" || ! -f "gff/${base_name}.gff" ]]; then
+            echo "Error: Corresponding CSV or GFF file for $fasta_file not found."
+            exit 1
+          fi
+          # Validate FASTA file
+          docker run --rm -v ${{ github.workspace }}:/workspace quay.io/biocontainers/py_fasta_validator:0.6--py38hd638cd3_4 py_fasta_validator -f /workspace/$fasta_file
+        done
+
+    - name: Index FASTA with Samtools
+      if: success()
+      run: |
+        echo "Validating fasta file: $(basename ${fasta_file})"
+        for fasta_file in $(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'fasta/.*\.fasta$'); do
+          # Index FASTA file
+          docker run --rm -v ${{ github.workspace }}:/workspace quay.io/biocontainers/samtools:1.20--h50ea8bc_0 samtools faidx /workspace/$fasta_file
+        done
+
+    - name: Commit and push index files
+      if: success()
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add fasta/*.fasta.fai
+        git commit -m "Add generated FASTA index files"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+
