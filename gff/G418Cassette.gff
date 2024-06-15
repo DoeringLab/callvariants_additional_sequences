@@ -1,0 +1,7 @@
+##gff-version 3
+##source-version thomas snapgene 20240422
+##sequence-region G418Cassette 1 2577
+G418Cassette	ThomasSnapGene	biological_region	1	2577	.	+	.	ID=g418_cassette;description=G418 selection marker;gene_type=selection_marker
+G418Cassette	ThomasSnapGene	promoter	1	835	.	+	.	ID=act1_promoter;description=ACT1 promoter on G418 selection marker;gene_type=selection_marker
+G418Cassette	ThomasSnapGene	selection_marker	842	1636	.	+	.	ID=g418_orf;Parent=g418_cassette;description=G419 resistance cassette;gene_type=selection_marker
+G418Cassette	ThomasSnapGene	terminator	1643	2577	.	+	.	ID=nmt_terminator;Parent=g418_cassette;description=NMT terminator;gene_type=selection_marker
