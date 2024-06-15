@@ -22,7 +22,7 @@ jobs:
           if [[ "$fasta_file" == *.fasta ]]; then
             # Check corresponding CSV and GFF files
             base_name=$(basename "$fasta_file" .fasta)
-            if [[ ! -f "csv/${base_name}.csv" || ! -f "gff/${base_name}.gff" ]]; then
+            if [[ ! -f "csv/${base_name}.csv" &&  ! -f "gff/${base_name}.gff" ]]; then
               echo "Error: Corresponding CSV or GFF file for $fasta_file not found."
               exit 1
             fi
