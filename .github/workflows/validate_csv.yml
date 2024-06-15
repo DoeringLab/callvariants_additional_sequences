@@ -19,7 +19,7 @@ jobs:
 
     - name: Validate and Convert CSV
       run: |
-        for csv_file in $(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'csv/.*\.csv$'); do
+        for csv_file in csv/.csv; do
           echo "Converting snpgene csv $csv_file to GFF3"
           # Check corresponding FASTA file
           base_name=$(basename "$csv_file" .csv)
@@ -28,7 +28,7 @@ jobs:
             exit 1
           fi
           # Run CSV to GFF conversion
-          docker run --rm -v ${{ github.workspace }}:/workspace rocker/tidyverse:latest Rscript /workspace/scripts/make_gff_from_snap.R /workspace/$csv_file II levy_bc /workspace/gff/${base_name}.gff
+          docker run --rm -v ${{ github.workspace }}:/workspace rocker/tidyverse:latest Rscript /workspace/scripts/make_gff_from_snap.R /workspace/$csv_file ${base_name} snapgene_by_github /workspace/gff/${base_name}.gff
         done
 
     - name: Commit and push GFF files

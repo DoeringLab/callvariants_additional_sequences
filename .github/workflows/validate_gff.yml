@@ -19,7 +19,7 @@ jobs:
 
     - name: Validate GFF
       run: |
-        for gff_file in $(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'gff/.*\.gff$'); do
+        for gff_file in gff/.*gff; do
           echo "Validating GFF3 file: $gff_file"
           # Check corresponding FASTA file
           base_name=$(basename "$gff_file" .gff)
