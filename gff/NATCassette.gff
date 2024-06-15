@@ -1,8 +1,8 @@
 ##gff-version 3
 ##source-version thomas snapgene 20240422
 ##sequence-region NATCassette 1 1664
-NATCassette	ChaseMateusiak	biological_region	1	1664	.	+	.	ID=nat_cassette;description=drug marker;gene_type=selection_marker
-NATCassette	ChaseMateusiak	promoter	1	836	.	+	.	ID=actin_promoter;Parent=nat_cassette;description=drug marker;gene_type=selection_marker
-NATCassette	ChaseMateusiak	selection_marker	846	1409	.	+	.	ID=nat_orf;Parent=nat_cassette;description=NAT ORF;gene_type=selection_marker
-NATCassette	ChaseMateusiak	three_prime_utr	1413	1436	.	+	.	ID=trp1_utr;Parent=nat_cassette;description=End of TRP1(CKF44_04501);gene_type=selection_marker
-NATCassette	ChaseMateusiak	terminator	1437	1664	.	+	.	ID=trp1_terminator;Parent=nat_cassette;description=TRP1 (CKF44_04501) terminator;gene_type=selection_marker
+NATCassette	thomas_snap_gene	biological_region	1	1664	.	+	.	ID=nat_cassette;description=drug marker;gene_type=selection_marker
+NATCassette	thomas_snap_gene	promoter	1	836	.	+	.	ID=actin_promoter;Parent=nat_cassette;description=drug marker;gene_type=selection_marker
+NATCassette	thomas_snap_gene	selection_marker	846	1409	.	+	.	ID=nat_orf;Parent=nat_cassette;description=NAT ORF;gene_type=selection_marker
+NATCassette	thomas_snap_gene	three_prime_utr	1413	1436	.	+	.	ID=trp1_utr;Parent=nat_cassette;description=End of TRP1(CKF44_04501);gene_type=selection_marker
+NATCassette	thomas_snap_gene	terminator	1437	1664	.	+	.	ID=trp1_terminator;Parent=nat_cassette;description=TRP1 (CKF44_04501) terminator;gene_type=selection_marker
