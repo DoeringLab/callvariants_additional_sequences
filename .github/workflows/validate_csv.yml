@@ -20,7 +20,7 @@ jobs:
     - name: Validate and Convert CSV
       run: |
         for csv_file in $(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'csv/.*\.csv$'); do
-          echo "Converting snpgene csv ${csv_file} to GFF3"
+          echo "Converting snpgene csv $csv_file to GFF3"
           # Check corresponding FASTA file
           base_name=$(basename "$csv_file" .csv)
           if [[ ! -f "fasta/${base_name}.fasta" ]]; then

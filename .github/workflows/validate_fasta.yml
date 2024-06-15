@@ -21,6 +21,7 @@ jobs:
     - name: Validate FASTA
       run: |
         for fasta_file in $(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'fasta/.*\.fasta$'); do
+          echo "Validating fasta file: $fasta_file"
           # Check corresponding CSV and GFF files
           base_name=$(basename "$fasta_file" .fasta)
           if [[ ! -f "csv/${base_name}.csv" || ! -f "gff/${base_name}.gff" ]]; then
@@ -34,7 +35,6 @@ jobs:
     - name: Index FASTA with Samtools
       if: success()
       run: |
-        echo "Validating fasta file: $(basename ${fasta_file})"
         for fasta_file in $(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'fasta/.*\.fasta$'); do
           # Index FASTA file
           docker run --rm -v ${{ github.workspace }}:/workspace quay.io/biocontainers/samtools:1.20--h50ea8bc_0 samtools faidx /workspace/$fasta_file
