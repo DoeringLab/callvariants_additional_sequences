@@ -16,47 +16,32 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Filter changed files
-      id: filter
-      uses: dorny/paths-filter@v2
-      with:
-        filters: |
-          fasta:
-            - 'fasta/*.fasta'
-
-    - name: Convert line endings from DOS to Unix
-      if: steps.filter.outputs.fasta == 'true'
-      run: |
-        for fasta_file in $(git diff --name-only HEAD^ HEAD -- 'fasta/*.fasta'); do
-          echo "Converting $fasta_file from DOS to Unix format"
-          dos2unix "$fasta_file"
-        done
-
     - name: Validate FASTA
-      if: steps.filter.outputs.fasta == 'true'
       run: |
-        for fasta_file in $(git diff --name-only HEAD^ HEAD -- 'fasta/*.fasta'); do
-          # Check corresponding CSV and GFF files
-          base_name=$(basename "$fasta_file" .fasta)
-          if [[ ! -f "csv/${base_name}.csv" &&  ! -f "gff/${base_name}.gff" ]]; then
-            echo "Error: Corresponding CSV or GFF file for $fasta_file not found."
-            exit 1
+        for fasta_file in fasta/*.fasta; do
+          if [[ "$fasta_file" == *.fasta ]]; then
+            # Check corresponding CSV and GFF files
+            base_name=$(basename "$fasta_file" .fasta)
+            if [[ ! -f "csv/${base_name}.csv" &&  ! -f "gff/${base_name}.gff" ]]; then
+              echo "Error: Corresponding CSV or GFF file for $fasta_file not found."
+              exit 1
+            fi
+            # Validate FASTA file
+            docker run --rm -v ${{ github.workspace }}:/workspace quay.io/biocontainers/py_fasta_validator:0.6--py38hd638cd3_4 py_fasta_validator -f /workspace/$fasta_file
           fi
-          # Validate FASTA file
-          docker run --rm -v ${{ github.workspace }}:/workspace quay.io/biocontainers/py_fasta_validator:0.6--py38hd638cd3_4 py_fasta_validator -f /workspace/$fasta_file
         done
 
     - name: Index FASTA with Samtools
-      if: steps.filter.outputs.fasta == 'true'
       run: |
-        for fasta_file in $(git diff --name-only HEAD^ HEAD -- 'fasta/*.fasta'); do
-          echo "Indexing FASTA file: $fasta_file"
-          # Index FASTA file
-          docker run --rm -v ${{ github.workspace }}:/workspace quay.io/biocontainers/samtools:1.20--h50ea8bc_0 samtools faidx /workspace/$fasta_file
+        for fasta_file in fasta/*.fasta; do
+          if [[ "$fasta_file" == *.fasta ]]; then
+            echo "Indexing FASTA file: $fasta_file"
+            # Index FASTA file
+            docker run --rm -v ${{ github.workspace }}:/workspace quay.io/biocontainers/samtools:1.20--h50ea8bc_0 samtools faidx /workspace/$fasta_file
+          fi
         done
 
     - name: Commit and push index files
-      if: steps.filter.outputs.fasta == 'true'
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -65,4 +50,3 @@ jobs:
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
