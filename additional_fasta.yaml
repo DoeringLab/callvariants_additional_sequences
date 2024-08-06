@@ -1,0 +1,17 @@
+- genome_name: DGK83_CKF44_00737_Deletion_NAT
+  additional_fasta: https://raw.githubusercontent.com/DoeringLab/insertion_sequences/main/fasta/DGK83_CKF44_00737_Deletion_NAT.fasta
+- genome_name: DGK84_CKF44_04151_Deletion_NAT
+  additional_fasta: https://raw.githubusercontent.com/DoeringLab/insertion_sequences/main/fasta/DGK84_CKF44_04151_Deletion_NAT.fasta
+- genome_name: DGK84_CKF44_06594_Deletion_G418
+  additional_fasta: https://raw.githubusercontent.com/DoeringLab/insertion_sequences/main/fasta/DGK84_CKF44_06594_Deletion_G418.fasta
+- genome_name: DGK85_CKF44_02139_Deletion_G418
+  additional_fasta: https://raw.githubusercontent.com/DoeringLab/insertion_sequences/main/fasta/DGK85_CKF44_02139_Deletion_G418.fasta
+- genome_name: EG_CKF44_01050_complement_SH2_G418
+  additional_fasta: https://raw.githubusercontent.com/DoeringLab/insertion_sequences/main/fasta/EG_CKF44_01050_complement_SH2_G418.fasta
+- genome_name: EG_CKF44_01050_deletion_NAT
+  additional_fasta: https://raw.githubusercontent.com/DoeringLab/insertion_sequences/main/fasta/EG_CKF44_01050_deletion_NAT.fasta
+- genome_name: G418Cassette
+  additional_fasta: https://raw.githubusercontent.com/DoeringLab/insertion_sequences/main/fasta/G418Cassette.fasta
+- genome_name: NATCassette
+  additional_fasta: https://raw.githubusercontent.com/DoeringLab/insertion_sequences/main/fasta/NATCassette.fasta
+- genome_name: reference
