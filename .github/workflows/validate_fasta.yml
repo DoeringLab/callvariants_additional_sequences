@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'fasta/*.fasta'
+      - '.github/workflows/validate_fasta.yml'
 
 jobs:
   validate_fasta:
@@ -12,6 +15,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Install dos2unix
+      run: sudo apt-get update && sudo apt-get install -y dos2unix
 
     - name: Convert line endings from DOS to Unix
       run: |
