@@ -1,0 +1,4 @@
+##gff-version 3
+##source-version google metadata 20240716
+##sequence-region DGK83_CKF44_00737_deletion_NAT 1 3474
+DGK83_CKF44_00737_deletion_NAT	metadata	biological_region	1	3474	.	+	.	ID=DGK83_CKF44_00737_deletion_NAT;description=drug marker;gene_type=selection_marker
