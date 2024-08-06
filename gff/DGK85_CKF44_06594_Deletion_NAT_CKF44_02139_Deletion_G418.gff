@@ -1,4 +1,6 @@
 ##gff-version 3
 ##source-version google metadata 20240716
+##sequence-region DGK85_CKF44_06594_Deletion_NAT 1 3697
 ##sequence-region DGK85_CKF44_02139_Deletion_G418 1 4577
+DGK85_CKF44_06594_Deletion_NAT	metadata	biological_region	1	3697	.	+	.	ID=DGK85_CKF44_02139_Deletion_G418;description=drug marker;gene_type=selection_marker
 DGK85_CKF44_02139_Deletion_G418	metadata	biological_region	1	4577	.	+	.	ID=DGK85_CKF44_02139_Deletion_G418;description=drug marker;gene_type=selection_marker
