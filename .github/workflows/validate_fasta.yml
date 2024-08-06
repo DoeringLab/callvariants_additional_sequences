@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'fasta/*.fasta'
-      - '.github/workflows/validate_fasta.yml'
 
 jobs:
   validate_fasta:
@@ -15,6 +12,15 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Convert line endings from DOS to Unix
+      run: |
+        for fasta_file in fasta/*.fasta; do
+          if [[ "$fasta_file" == *.fasta ]]; then
+            echo "Converting $fasta_file from DOS to Unix format"
+            dos2unix "$fasta_file"
+          fi
+        done
 
     - name: Validate FASTA
       run: |
@@ -50,3 +56,4 @@ jobs:
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
